@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'spree_core', '>= 3.1.0', '< 4.0'
   s.add_dependency 'spree_extension'
+  s.add_dependency 'request_store'
+  # s.add_dependency 'ancestry' # this is under internal development
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'capybara-screenshot'
