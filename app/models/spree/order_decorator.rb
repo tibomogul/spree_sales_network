@@ -1,4 +1,6 @@
 Spree::Order.class_eval do
+  has_many :commissions
+
   alias :old_finalize! :finalize!
 
   def finalize!
@@ -11,6 +13,7 @@ Spree::Order.class_eval do
         user.reload
       end
     end
+    Spree::Commission.create_commissions self
   end
 
   private 
