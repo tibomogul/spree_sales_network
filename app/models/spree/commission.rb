@@ -3,6 +3,9 @@ module Spree
     belongs_to :order
     belongs_to :user
 
+    extend DisplayMoney
+    money_methods :amount
+
     def self.create_commissions order
       create(compute_from_order(order))
     end
