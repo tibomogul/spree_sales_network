@@ -3,4 +3,10 @@
 
 en:
   spree:
+    commission: Commission
+    payee: Payee
     sales_network_slug: "URL ID"
+  activerecord:
+    attributes:
+      spree/commission:
+        amount: Amount
