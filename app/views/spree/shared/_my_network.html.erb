@@ -1,11 +1,12 @@
 <div data-hook="account_my_network" class="account-my-network">
-  <h3><%= Spree.t(:my_network) %></h3>
+  <h3><%= Spree.t(:my_network_purchases) %></h3>
   <% if @user.has_children? %>
     <table class="table table-striped order-summary">
     <thead class="active">
     <tr>
       <th class="order-number"><%= Spree::Order.human_attribute_name(:number) %></th>
       <th class="order-date"><%= Spree.t(:date) %></th>
+      <th class="order-buyer"><%= Spree.t(:buyer) %></th>
       <th class="order-total"><%= Spree.t(:total) %></th>
       <th class="order-commission"><%= Spree.t(:commission) %></th>
     </tr>
@@ -16,6 +17,7 @@
       <tr>
         <td class="order-number"><%= link_to order.number, order_url(order) %></td>
         <td class="order-date"><%= l order.completed_at.to_date %></td>
+        <td class="order-buyer"><%= order.user.email %></td>
         <td class="lead text-primary order-total"><%= order.display_total %></td>
         <td class="lead text-primary order-commission"><%= commission.display_amount %></td>
       </tr>
@@ -23,6 +25,6 @@
     </tbody>
   </table>
   <% else %>
-    <div class="alert alert-info"><%= Spree.t(:you_have_no_network_yet) %></div>
+    <div class="alert alert-info"><%= Spree.t(:no_purchases_found) %></div>
   <% end %>
 </div>
