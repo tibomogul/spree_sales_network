@@ -1,0 +1,16 @@
+@import 'spree/backend/global/variables';
+
+// Red
+.label-canceled {
+  background-color: $brand-danger;
+}
+
+// Orange
+.label-eligible,
+.label-held {
+  background-color: $brand-warning;
+
+  a {
+    color: white !important;
+  }
+}

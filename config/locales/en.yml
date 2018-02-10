@@ -4,9 +4,16 @@
 en:
   spree:
     commission: Commission
+    commission_state:
+      eligible: eligible
+      authorized: authorized
+      paid: paid
+      held: held
+      canceled: canceled
     payee: Payee
     sales_network_slug: "URL ID"
   activerecord:
     attributes:
       spree/commission:
         amount: Amount
+        state: State

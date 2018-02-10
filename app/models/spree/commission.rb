@@ -6,6 +6,24 @@ module Spree
     extend DisplayMoney
     money_methods :amount
 
+    state_machine :state, initial: :eligible do
+      event :authorize do
+        transition [:eligible, :held] => :authorized
+      end
+
+      event :pay do
+        transition [:authorized] => :paid
+      end
+
+      event :hold do
+        transition [:eligible, :authorized] => :held
+      end
+
+      event :cancel do
+        transition all - :paid => :canceled
+      end
+    end
+
     def self.create_commissions order
       create(compute_from_order(order))
     end
