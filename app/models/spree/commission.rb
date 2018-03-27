@@ -24,13 +24,13 @@ module Spree
       end
     end
 
-    def self.create_commissions order
-      create(compute_from_order(order))
+    def self.create_commissions order, payment_capture
+      create!(compute_from_order(order, payment_capture))
     end
 
-    def self.compute_from_order order
+    def self.compute_from_order order, payment_capture
       payout_results = []
-      payout_base = order_payout_base order
+      payout_base = payment_payout_base payment_capture
       { 
         10.0 => order.user&.parent,
         5.0  => order.user&.parent&.parent,
@@ -38,7 +38,7 @@ module Spree
       }.each do |k,v|
         unless v.nil?
           amount = (payout_base.to_f * k / 100.0).round(2).to_d
-          payout_results << {user: v, order: order, amount: amount}
+          payout_results << {user: v, order: order, amount: amount, rate: k}
         end
       end
       payout_results
@@ -46,6 +46,10 @@ module Spree
 
     def self.order_payout_base order
       order.line_items.to_a.sum(&:total)
+    end
+
+    def self.payment_payout_base payment_capture
+      payment_capture.amount
     end
   end
 end

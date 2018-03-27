@@ -13,7 +13,6 @@ Spree::Order.class_eval do
         user.reload
       end
     end
-    Spree::Commission.create_commissions self
   end
 
   private 
