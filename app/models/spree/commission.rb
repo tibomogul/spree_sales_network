@@ -24,13 +24,13 @@ module Spree
       end
     end
 
-    def self.create_commissions order, payment_capture
-      create!(compute_from_order(order, payment_capture))
+    def self.create_commissions order
+      create!(compute_from_order(order))
     end
 
-    def self.compute_from_order order, payment_capture
+    def self.compute_from_order order
       payout_results = []
-      payout_base = payment_payout_base payment_capture
+      payout_base = order_payout_base order
       { 
         10.0 => order.user&.parent,
         5.0  => order.user&.parent&.parent,
@@ -46,10 +46,6 @@ module Spree
 
     def self.order_payout_base order
       order.line_items.to_a.sum(&:total)
-    end
-
-    def self.payment_payout_base payment_capture
-      payment_capture.amount
     end
   end
 end
