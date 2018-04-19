@@ -61,6 +61,7 @@
         <th><%= sort_link @search, :number,           I18n.t(:number, scope: 'activerecord.attributes.spree/order') %></th>
         <th><%= sort_link @search, :email,            I18n.t(:email, scope: 'activerecord.attributes.spree/order') %></th>
         <th><%= sort_link @search, :payee, I18n.t(:payee, scope: 'spree') %></th>
+        <th><%= sort_link @search, :base_price, I18n.t(:base_price, scope: 'activerecord.attributes.spree/commission') %></th>
         <th><%= sort_link @search, :amount, I18n.t(:amount, scope: 'activerecord.attributes.spree/commission') %></th>
         <th><%= sort_link @search, :state, I18n.t(:state, scope: 'activerecord.attributes.spree/commission') %></th>
         <th data-hook="admin_orders_index_header_actions" class="actions"></th>
@@ -85,6 +86,7 @@
           <% end %>
         </td>
         <td><%= commission.user.email %></td>
+        <td><%= commission.display_base_price.to_html %></td>
         <td><%= commission.display_amount.to_html %></td>
         <td>
           <span class="label label-<%= commission.state.downcase %>"><%= Spree.t("commission_state.#{commission.state.downcase}") %></span>

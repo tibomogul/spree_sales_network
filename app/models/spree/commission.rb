@@ -4,7 +4,7 @@ module Spree
     belongs_to :user
 
     extend DisplayMoney
-    money_methods :amount
+    money_methods :amount, :base_price
 
     state_machine :state, initial: :eligible do
       event :authorize do
@@ -38,14 +38,20 @@ module Spree
       }.each do |k,v|
         unless v.nil?
           amount = (payout_base.to_f * k / 100.0).round(2).to_d
-          payout_results << {user: v, order: order, amount: amount, rate: k}
+          payout_results << {
+            user: v,
+            order: order,
+            amount: amount,
+            rate: k,
+            base_price: payout_base
+          }
         end
       end
       payout_results
     end
 
     def self.order_payout_base order
-      order.line_items.to_a.sum(&:total)
+      order.item_total + order.adjustments.sum(:amount)
     end
   end
 end
