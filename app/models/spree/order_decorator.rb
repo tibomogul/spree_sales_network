@@ -23,7 +23,11 @@ Spree::Order.class_eval do
 
   private 
   def generate_sales_network_slug
-    ActiveSupport::Inflector.parameterize("#{bill_address_firstname} #{bill_address_lastname}")
+    slug = ActiveSupport::Inflector.parameterize("#{bill_address_firstname} #{bill_address_lastname}")
+    while Spree::User.find_by(sales_network_slug: slug) do
+      slug = ActiveSupport::Inflector.parameterize("#{bill_address_firstname} #{SecureRandom.hex(5)} #{bill_address_lastname}")
+    end
+    slug
   end
 
   def update_user_sales_network_slug
