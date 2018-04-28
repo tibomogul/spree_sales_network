@@ -1,5 +1,8 @@
 module Spree
   class Commission < Spree::Base
+    include Spree::Commission::Calculator
+    include Spree::Commission::PayOut
+    
     belongs_to :order
     belongs_to :user
 
@@ -22,36 +25,6 @@ module Spree
       event :cancel do
         transition all - :paid => :canceled
       end
-    end
-
-    def self.create_commissions order
-      create!(compute_from_order(order))
-    end
-
-    def self.compute_from_order order
-      payout_results = []
-      payout_base = order_payout_base order
-      { 
-        10.0 => order.user&.parent,
-        5.0  => order.user&.parent&.parent,
-        1.0  => order.user&.parent&.parent&.parent
-      }.each do |k,v|
-        unless v.nil?
-          amount = (payout_base.to_f * k / 100.0).round(2).to_d
-          payout_results << {
-            user: v,
-            order: order,
-            amount: amount,
-            rate: k,
-            base_price: payout_base
-          }
-        end
-      end
-      payout_results
-    end
-
-    def self.order_payout_base order
-      order.item_total + order.adjustments.sum(:amount)
     end
   end
 end

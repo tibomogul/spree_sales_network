@@ -12,6 +12,7 @@ en:
       canceled: canceled
     payee: Payee
     sales_network_slug: "URL ID"
+    authorize_commissions_error: Authorize Commissions Error
   activerecord:
     attributes:
       spree/commission:
