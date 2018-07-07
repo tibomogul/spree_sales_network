@@ -1,0 +1,439 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
+  <head data-hook="inside_head">
+    <%= render partial: 'spree/shared/head' %>
+  </head>
+  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
+    <header class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-5 col-sm-12 nav-container">
+                <div class="navbar-header">
+                    <button type="button" data-toggle="collapse" data-target="#main-nav" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand mobile-logo visible-xs-inline-block">Vida Manila</a>
+                </div>
+                <div id="main-nav" class="navbar-collapse collapse">
+                    <ul class="nav nav-justified">
+                        <li class="dropdown menu-large">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">SHOP</a>
+                            <ul class="dropdown-menu megamenu row">
+                                <li class="col-sm-3">
+                                    <ul>
+                                        <li class="dropdown-header">VIDA COLLECTION</li>
+                                        <li><a href="#">VIDA WOMAN</a></li>
+                                        <li><a href="#">VIDA MAN</a></li>
+                                        <li><a href="#">VIDA NOVICE</a></li>
+                                        <li><a href="#">VIDA PLUS</a></li>
+                                        <li><a href="#">VIDA HOME</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-2 bordered">
+                                    <ul>
+                                        <li class="dropdown-header">APPARELS</li>
+                                        <li><a href="#">TOPS</a></li>
+                                        <li><a href="#">PANTS</a></li>
+                                        <li><a href="#">SKIRTS</a></li>
+                                        <li><a href="#">WRAP</a></li>
+                                        <li><a href="#">COATS</a></li>
+                                        <li class="dropdown-header">ACCESSORIES</li>
+                                        <li><a href="#">SCARVES</a></li>
+                                        <li><a href="#">JEWELRY</a></li>
+                                        <li><a href="#">WALLETS</a></li>
+                                        <li><a href="#">STATIONARY</a></li>
+                                        <li><a href="#">POCKET SQUARES</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-2">
+                                    <ul>
+                                        <li class="dropdown-header">BAGS</li>
+                                        <li><a href="#">PURSE</a></li>
+                                        <li><a href="#">POUCH</a></li>
+                                        <li><a href="#">SATCHEL</a></li>
+                                        <li><a href="#">TOTE</a></li>
+                                        <li><a href="#">SATCHEL</a></li>
+                                        <li class="dropdown-header">SHOES</li>
+                                        <li><a href="#">OPEN TOE</a></li>
+                                        <li><a href="#">SLINGBACKS</a></li>
+                                        <li><a href="#">BOOTS</a></li>
+                                        <li><a href="#">TOTE</a></li>
+                                        <li><a href="#">STILLETTO</a></li>
+                                    </ul>
+                                </li>
+                                <li class="col-sm-5">
+                                    <ul>
+                                        <li class="dropdown-header">SHOP BY COLLECTION</li>
+                                        <li><a href="#">MONUMENTAL</a></li>
+                                        <li><a href="#">ANOTHER COLLECTION</a></li>
+                                        <li class="dropdown-header">SHOP BY LOOK</li>
+                                        <li><a href="#" class="menu-img"><img class="" src="images/thumbnail.jpg" alt="user"></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#">LEARN</a></li>
+                        <li><a href="#">STORY</a></li>
+                        <li><a href="#">REWARD</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <a href="#" class="navbar-brand vida-logo hidden-xs">Vida Manila</a>
+            </div>
+            <div class="col-md-5 col-sm-9 d-flex justify-content-end align-items-center right-menu">
+                <form class="form-inline flex-fill search-box">
+                    <input class="form-control" placeholder="SEARCH" type="text">
+                </form>
+                <!-- <div class="input-group flex-fill search-box">
+                  <input type="text" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class='search-icon'></i>SEARCH</button>
+                  </span>
+                </div><!-- /input-group -->
+                <a class="flex-fill" href="#">
+                  <img class="" src="images/icons/icon-user.png" alt="user">
+              </a>
+                <a class="flex-fill" href="#">
+                  <img class="" src="images/icons/icon-diamond.png" alt="diamond">
+              </a>
+                <a class="flex-fill" href="#">
+              <img class="" src="images/icons/icon-cart.png" alt="cart">
+              </a>
+            </div>
+        </div>
+    </header>
+    <div class="headline-container">
+        <div class="floating-btns">
+            <div class="left-floating-btns">
+                <a class="floating-introduce-btn" href="#">INTRODUCE A FRIEND</a>
+            </div>
+            <div class="right-floating-btns">
+                <a class="floating-add-user-btn" href="#"></a>
+                <a class="floating-history-btn" href="#"></a>
+                <a class="floating-chat-btn" href="#"></a>
+            </div>
+        </div>
+        <!-- Carousel================================================== -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="first-slide" src="images/banner-bare.jpg" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Tailored for <span class="distorted">SUCCES</span></h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-action" href="#" role="button">Sign up today</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="second-slide" src="images/banner-bare.jpg" alt="Second slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Another example <span class="distorted-italic">HEADLINE</span>.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-action" href="#" role="button">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="third-slide" src="images/banner-bare.jpg" alt="Third slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>One more for <span class="distorted-italic">Good Measure</span>.</h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-action" href="#" role="button">Browse gallery</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex vida-short-cuts">
+                <a class="flex-fill" href="#">VIDA WOMAN</a>
+                <a class="flex-fill" href="#">VIDA MAN</a>
+                <a class="flex-fill" href="#">VIDA NOVICE</a>
+                <a class="flex-fill" href="#">VIDA PLUS</a>
+                <a class="flex-fill" href="#">VIDA HOME</a>
+            </div>
+        </div>
+        <!-- /.carousel -->
+    </div>
+    <main role="main" class="main-content">
+        <div class="container section">
+            <div class="row">
+                <div class="col-sm-12 section-title">
+                    <h2>THE HOUSE OF VIDA</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">NEW ARIVAL</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">STYLE PERSONALITY</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">INTRODUCE A FRIEND</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--         <div class="section container-fluid splash-text">
+            <div class="container">
+                <img class="" src="images/earn-banner-text.png" alt="Turn your shopping into a rewarding experience.">
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-lg btn-action" href="#" role="button">FIND OUT MORE</a>
+                </div>
+            </div>
+        </div> -->
+        <div class="section container-fluid splash-text">
+            <div class="container">
+                <h1>Turn your shopping rendezvous <span class="distorted">into a rewarding experience.</span></h1>
+                <div class="col-sm-12 text-right">
+                    <a class="btn btn-lg btn-action" href="#" role="button">FIND OUT MORE</a>
+                </div>
+            </div>
+        </div>
+        <div class="container section">
+            <div class="row">
+                <div class="col-sm-12 section-title">
+                    <h2>JUST FOR YOU</h2>
+                    <p>DISCOVER THE PIECES THAT WE'VE PERSONALLY CHOSEN FOR YOU</p>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">ITEM 2</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">ITEM 2</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <img src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">ITEM 3</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid section">
+            <div class="row">
+                <div class="col-sm-12 section-title">
+                    <h2>THE ART OF VIDA</h2>
+                </div>
+            </div>
+            <div class="row  art-of-vida-section eq-height">
+                <div class="col-sm-4">
+                    <div class="card left-card">
+                        <img class="text-image" src="images/inspired-by.jpg" alt="user">
+                        <a href="#" class="btn btn-lg btn-action">DISCOVER MORE</a>
+                    </div>
+                </div>
+                <div class="col-sm-4 mid-column">
+                    <div class="card middle-card">
+                        <img class='card-img-top' src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">FEATURED ITEM</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card right-card">
+                        <img class="text-image" src="images/text-monumental-collection.png" alt="user">
+                        <a href="#" class="btn btn-lg btn-action">SHOP BY LOOK</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row art-of-vida-section eq-height">
+                <div class="col-sm-4">
+                    <div class="card left-card">
+                        <img class="text-image" src="images/text-vida-look-book.png" alt="">
+                        <a href="#" class="btn btn-lg btn-action">DISCOVER MORE</a>
+                    </div>
+                </div>
+                <div class="col-sm-4 mid-column">
+                    <div class="card middle-card">
+                        <img class='card-img-top' src="images/thumbnail.jpg">
+                        <div class="card-body">
+                            <a href="#" class="btn-action">FEATURED ITEM</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card right-card">
+                        <img class="text-image" src="images/text-a-day-with-gigi.png" alt="">
+                        <a href="#" class="btn btn-lg btn-action">DISCOVER MORE</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row art-of-vida-section eq-height">
+                <div class="col-sm-6">
+                    <div class="card left-card">
+                        <img class="text-image" src="images/text-how-to-dress-up.png" alt="">
+                        <a href="#" class="btn btn-lg btn-action">DISCOVER MORE</a>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card right-card">
+                        <img class="text-image" src="images/text-fashion-inspiration.png" alt="">
+                        <a href="#" class="btn btn-lg btn-action">FEATURED INFLUENCER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container section social-media-section">
+            <div class="row">
+                <div class="col-sm-12 section-title">
+                    <h2>FOLLOW US ON SOCIAL MEDIA</h2>
+                    <p class="social-media-list">
+                        <a href=" # "><img class=" " src="images/icons/icon-facebook.png " alt="cart " height="auto " width="auto " ></a>
+                        <a href="# "><img class=" " src="images/icons/icon-instagram.png " alt="cart " height="auto " width="auto "></a>
+                    </p>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="card ">
+                        <img src="images/thumbnail.jpg ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="card ">
+                        <img src="images/thumbnail.jpg ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="card ">
+                        <img src="images/thumbnail.jpg ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="card ">
+                        <img src="images/thumbnail.jpg ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="card ">
+                        <img src="images/thumbnail.jpg ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="card ">
+                        <img src="images/thumbnail.jpg ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--============================
+=            Footer            =
+=============================-->
+    <footer class="footer section section-sm ">
+        <!-- Container Start -->
+        <div class="container ">
+            <div class="row ">
+                <div class="col-sm-3 ">
+                    <img class="vida-manila-footer-logo " src="images/vida-manila-big-logo.png " alt="user " height="auto " width="100% ">
+                </div>
+                <!-- Link list -->
+                <div class="col-sm-3 ">
+                    <h4>ABOUT VIDA</h4>
+                    <ul>
+                        <li><a href="# ">Our Story</a></li>
+                        <li><a href="# ">Introduce A friend</a></li>
+                        <li><a href="# ">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Link list -->
+                <div class="col-sm-3 ">
+                    <h4>VIDA POLICIES</h4>
+                    <ul>
+                        <li><a href="# ">Shipping</a></li>
+                        <li><a href="# ">Returns and Exchange</a></li>
+                        <li><a href="# ">Privacy Policy</a></li>
+                        <li><a href="# ">Rewards Policy</a></li>
+                        <li><a href="# ">Terms of Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h4>FOLLOW VIDA</h4>
+                    <ul>
+                        <li><a href="#"><i class='follow-facebook'> </i>Facebook</a></li>
+                        <li><a href="#"><i class='follow-instagram'> </i>Instagram</a></li>
+                    </ul>
+                    <h4>VIDA NEWSLETTER</h4>
+                    <p>Subscribe to our newsletter</p>
+                    <form class="form-inline flex-fill newsletter-box ">
+                        <input class=" " placeholder="Enter Your Email Address " type="text ">
+                    </form>
+                </div>
+            </div>
+            <div class="row no-gutters copyright ">
+                <div class="col-md-6">Copyright © 2018 by Vida Manila All Rights Reserved.</div>
+                <div class="col-md-6 text-right ">Need Help? Call customer Service at 123-456789</div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Bottom -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
+    <script>
+    window.jQuery || document.write('<script src="js/jquery-3.3.1.slim.min.js "><\/script>')
+    </script>
+    <script src="js/bootstrap.min.js "></script>
+    <script src="js/holder.min.js "></script>
+    <script>
+    Holder.addTheme("bright ", {
+        bg: "white ",
+        fg: "gray ",
+        size: 12
+    });
+    </script>
+
+<!--     <%= render partial: 'spree/shared/header' %>
+
+    <div class="container">
+      <div class="row" data-hook>
+        <%= spree_breadcrumbs(@taxon) %>
+
+        <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
+
+        <div id="content" class="<%= !content_for?(:sidebar) ? "col-sm-12" : "col-sm-8 col-md-9" %>" data-hook>
+          <%= flash_messages %>
+          <%= yield %>
+        </div>
+
+        <%= yield :templates %>
+      </div>
+    </div>
+ -->
+  </body>
+</html>
