@@ -4,6 +4,26 @@ module Spree
       extend ActiveSupport::Concern
 
       class_methods do
+        def monthly_bounds(included_date=nil)
+          if included_date.nil?
+            included_date = Time.use_zone('Asia/Singapore'){ Date.current } 
+          end
+          raise ArgumentError, 'Argument is not a valid time' unless included_date.is_a?(Date)
+          start_date = included_date.at_beginning_of_month.at_beginning_of_day
+          end_date = included_date.at_end_of_month.at_end_of_day
+          [start_date, end_date]
+        end
+
+        def monthly_total(user, included_date=nil)
+          start_date, end_date = monthly_bounds(included_date)
+          where(user_id: user.id).where("created_at >= ?", start_date).where("created_at <= ?", end_date).sum(:amount)
+        end
+
+        def monthly_transactions(user, included_date=nil)
+          start_date, end_date = monthly_bounds(included_date)
+          where(user_id: user.id).where("created_at >= ?", start_date).where("created_at <= ?", end_date)
+        end
+
         # until_date = Time.use_zone('Asia/Singapore'){ Date.yesterday.at_end_of_day.days_ago(7) }
         def authorize_commissions(until_date)
           raise ArgumentError, 'Argument is not a valid time' unless until_date.is_a?(ActiveSupport::TimeWithZone) 
