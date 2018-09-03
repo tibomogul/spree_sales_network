@@ -11,6 +11,6 @@ Spree::StoreController.class_eval do
 
   private
   def check_sponsor
-    session[:sponsor] ||= params[:sponsor]
+    session[:sponsor] = params[:sponsor] if params[:sponsor].present? # always overwrite if there is new
   end
 end
