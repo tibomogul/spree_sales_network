@@ -12,6 +12,13 @@ Spree::Order.class_eval do
     Spree::Commission.create_commissions self
   end
 
+  alias :old_after_cancel :after_cancel
+
+  def after_cancel
+    commissions.each(&:cancel!)
+    old_after_cancel
+  end
+
   alias :old_persist_user_address! :persist_user_address!
 
   def persist_user_address!

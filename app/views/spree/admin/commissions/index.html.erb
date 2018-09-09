@@ -85,7 +85,7 @@
             <span class="icon icon-filter filterable js-add-filter" data-ransack-field="q_email_cont" data-ransack-value="<%= order.email %>"></span>
           <% end %>
         </td>
-        <td><%= commission.user.email %></td>
+        <td><%= commission.user ? commission.user.email : 'VIDA MANILA' %></td>
         <td><%= commission.display_base_price.to_html %></td>
         <td><%= commission.display_amount.to_html %></td>
         <td>

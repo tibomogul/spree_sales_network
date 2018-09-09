@@ -46,7 +46,7 @@ module Spree
           credit_type = Spree::StoreCreditType.find_by! name: "Points"
           simulate = simulation
           transaction do
-            member_ids_query = where("created_at <= ?", until_date).where(state: 'authorized').distinct.select(:user_id).limit(1000)
+            member_ids_query = where.not(user_id: nil).where("created_at <= ?", until_date).where(state: 'authorized').distinct.select(:user_id).limit(1000)
             member_ids_subset = member_ids_query.pluck(:user_id)
             while !member_ids_subset.empty?
               member_ids_subset.each do |member_id|
