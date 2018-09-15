@@ -46,6 +46,22 @@ module Spree
         def order_payout_base order
           order.item_total + order.adjustments.sum(:amount)
         end      	
+
+        def reduce_commission reimbursement
+          return unless reimbursement.customer_return
+          reimbursement.order.commissions.each do |commission|
+            base_price = commission.base_price - reimbursement.total
+            base_price = 0 if base_price < 0.01 # check tolerance
+            if base_price > 0
+              commission.base_price = base_price
+              commission.amount = (base_price * commission.rate / 100.00).round(2).to_d
+            else
+              commission.base_price = 0
+              commission.amount = 0
+            end
+            commission.save!
+          end
+        end
       end
   	end
   end
