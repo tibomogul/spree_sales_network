@@ -3,7 +3,7 @@ Spree::User.class_eval do
 
   has_many :commissions
 
-  after_create :update_user_sales_network_slug
+  after_save :update_user_sales_network_slug
 
   def update_user_sponsor
     if parent.nil? && !RequestStore.store[:sponsor].blank?
@@ -14,8 +14,7 @@ Spree::User.class_eval do
 
   def update_user_sales_network_slug
     if sales_network_slug.blank? && (try(:account_firstname).present? || try(:account_lastname).present?)
-      self.sales_network_slug = generate_sales_network_slug
-      save!
+      update_column(:sales_network_slug, generate_sales_network_slug)
     end
   end
 
