@@ -5,7 +5,7 @@ Spree::Order.class_eval do
 
   def finalize!
     old_finalize!
-    if user&.sales_network_slug.blank? && user.orders.where(state: 'complete').count > 0
+    if user && user.sales_network_slug.blank? && user.orders.where(state: 'complete').count > 0
       user.update_user_sales_network_slug
       user.reload
     end
