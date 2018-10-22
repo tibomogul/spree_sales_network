@@ -24,6 +24,10 @@ module Spree
           where(user_id: user.id).where("created_at >= ?", start_date).where("created_at <= ?", end_date)
         end
 
+        def lifetime_total(user)
+          where(user_id: user.id).sum(:amount)
+        end
+
         # until_date = Time.use_zone('Asia/Singapore'){ Date.yesterday.at_end_of_day.days_ago(7) }
         def authorize_commissions(until_date)
           raise ArgumentError, 'Argument is not a valid time' unless until_date.is_a?(ActiveSupport::TimeWithZone) 

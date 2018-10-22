@@ -19,7 +19,7 @@ module Spree
       end
 
       event :hold do
-        transition [:eligible, :authorized] => :held
+        transition [:eligible, :authorized, :held] => :held
       end
 
       event :cancel do

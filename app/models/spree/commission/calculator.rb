@@ -49,12 +49,16 @@ module Spree
 
         def reduce_commission reimbursement
           return unless reimbursement.customer_return
+          Rails.logger.info("Reimbursing #{reimbursement.order.number} for #{reimbursement.total}")
           reimbursement.order.commissions.each do |commission|
             base_price = commission.base_price - reimbursement.total
             base_price = 0 if base_price < 0.01 # check tolerance
+            Rails.logger.info("Commission base price Old: #{commission.base_price}; New: #{base_price}")
             if base_price > 0
+              computed_value = (base_price * commission.rate / 100.00).round(2).to_d
+              Rails.logger.info("Commission @ #{commission.rate} Old: #{commission.amount} ; New: #{computed_value}")
               commission.base_price = base_price
-              commission.amount = (base_price * commission.rate / 100.00).round(2).to_d
+              commission.amount = computed_value
             else
               commission.base_price = 0
               commission.amount = 0
