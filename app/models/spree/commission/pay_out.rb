@@ -44,8 +44,49 @@ module Spree
           logger.error("#{e.to_yaml}")
         end
 
+        def authorize_eligible_commissions(included_date, simulation=true)
+          start_date, end_date = monthly_bounds(included_date)
+          transaction do
+            member_ids_query = where.not(user_id: nil)
+              .where("created_at >= ?", start_date)
+              .where("created_at <= ?", end_date)
+              .where(state: 'eligible')
+              .distinct.select(:user_id).limit(1000)
+            member_ids_subset = member_ids_query.pluck(:user_id)
+            while !member_ids_subset.empty?
+              member_ids_subset.each do |member_id|
+                member = Spree::User.find(member_id)
+                state = 'canceled'
+                purchases = member.orders
+                  .where("created_at >= ?", start_date)
+                  .where("created_at <= ?", end_date)
+                  .where(payment_state: 'paid')
+                  .sum(:item_total)
+                if purchases > 900
+                  state = 'authorized'
+                end
+                puts "Member: #{member_id}, Amount: #{purchases}, State: #{state}"
+                comm_ids_query = where(user_id: member_id)
+                  .where("created_at >= ?", start_date)
+                  .where("created_at <= ?", end_date)
+                  .where(state: 'eligible')
+                comm_ids_query.update_all([
+                  'state = ?, updated_at = ?',
+                  state,
+                  DateTime.current
+                ])
+              end
+              member_ids_subset = member_ids_query.pluck(:user_id)
+            end
+            raise ArgumentError, "SIMULATE ON" if simulation # roll it back
+          end
+        rescue
+          puts "Simulation end" if simulation
+        end
+
         def pay_commissions(until_date, simulation=true)
           raise ArgumentError, 'Argument is not a valid time' unless until_date.is_a?(ActiveSupport::TimeWithZone)
+          memo = "From points for the period ending #{until_date.strftime('%F')}"
           category = Spree::StoreCreditCategory.find_by! name: "Points"
           credit_type = Spree::StoreCreditType.find_by! name: "Points"
           simulate = simulation
@@ -61,7 +102,7 @@ module Spree
 
                   puts "Member: #{member_id}, Amount: #{subtotal}"
                   # create the credit here
-                  credit = create_credit(member_id, category.id, credit_type.id, subtotal, "PHP")
+                  credit = create_credit(member_id, category.id, credit_type.id, subtotal, "PHP", memo)
 
                   puts "created credit"
 
@@ -88,7 +129,7 @@ module Spree
             raise ArgumentError, "SIMULATE ON" if simulate # roll it back
           end
         rescue
-          puts "Simulation end" if simulate
+          puts "Simulation end #{memo}" if simulate
         end
 
         def summarize
@@ -101,14 +142,14 @@ module Spree
           # https://stackoverflow.com/questions/27524704/sql-query-to-limit-rows-within-a-group -- no row_number for mysql
         end
 
-        def create_credit(member_id, category_id, credit_type_id, amount, currency)
+        def create_credit(member_id, category_id, credit_type_id, amount, currency, memo)
           store_credit_params = {
             category_id: category_id,
             type_id: credit_type_id,
             user_id: member_id,
             amount: amount,
             created_by: Spree::StoreCredit.default_created_by,
-            memo: "From points for the period",
+            memo: memo,
             currency: currency
           }
           credit = Spree::StoreCredit.new(store_credit_params)
