@@ -3,6 +3,9 @@ module Spree
     belongs_to :user
     # belongs_to :remittance
     
+    extend DisplayMoney
+    money_methods :amount
+
     state_machine :state, initial: :draft do
       event :authorize do
         transition [:draft, :held] => :authorized

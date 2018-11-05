@@ -1,0 +1,89 @@
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::Encashment) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_encashment), new_admin_encashment_url, class: "btn-success", icon: 'add', id: 'admin_new_encashment' %>
+<% end if can? :create, Spree::Encashment %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_encashments_index_search">
+
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="row">
+        <div class="date-range-filter col-xs-12 col-md-8">
+          <div class="form-group">
+            <%= label_tag :q_created_at_gt, Spree.t(:date_range) %>
+            <div class="row no-padding-bottom">
+              <div class="col-xs-12 col-md-6">
+                <div class="input-group">
+                  <%= f.text_field :created_at_gt, class: 'datepicker datepicker-from form-control', value: params[:q][:created_at_gt], placeholder: Spree.t(:start) %>
+                  <span class="input-group-addon">
+                    <i class="icon icon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="input-group">
+                  <%= f.text_field :created_at_lt, class: 'datepicker datepicker-to form-control', value: params[:q][:created_at_lt], placeholder: Spree.t(:stop) %>
+                  <span class="input-group-addon">
+                    <i class="icon icon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div data-hook="admin_encashments_index_search_buttons" class="form-actions">
+        <%= button Spree.t(:filter_results), 'search' %>
+      </div>
+
+    <% end %>
+
+  </div>
+
+<% end %>
+
+<%= render 'spree/admin/shared/index_table_options', collection: @encashments %>
+
+<% if @encashments.any? %>
+  <table class="table" id="listing_encashments" data-hook>
+    <thead>
+      <tr data-hook="admin_encashments_index_headers">
+        <th><%= sort_link @search, :created_at,     I18n.t(:created_at, scope: 'activerecord.attributes.spree/encashment') %></th>
+        <th><%= sort_link @search, :payee, I18n.t(:payee, scope: 'spree') %></th>
+        <th><%= sort_link @search, :amount, I18n.t(:amount, scope: 'activerecord.attributes.spree/encashment') %></th>
+        <th><%= sort_link @search, :state, I18n.t(:state, scope: 'activerecord.attributes.spree/encashment') %></th>
+        <th data-hook="admin_encashments_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @encashments.each do |encashment| %>
+      <tr data-hook="admin_encashments_index_rows" class="state-<%= encashment.state.downcase %> <%= cycle('odd', 'even') %>">
+        <td>
+          <%= order_time(encashment.created_at) %>
+        </td>
+        <td><%= encashment.user.email %></td>
+        <td><%= encashment.display_amount.to_html %></td>
+        <td>
+          <span class="label label-<%= encashment.state.downcase %>"><%= Spree.t("encashment_state.#{encashment.state.downcase}") %></span>
+          <span class="icon icon-filter filterable js-add-filter" data-ransack-field="q_state_eq" data-ransack-value="<%= encashment.state %>"></span>
+        </td>
+        <td class='actions actions-1' data-hook="admin_encashments_index_row_actions">
+          <%= link_to_edit_url edit_admin_encashment_path(encashment), title: "admin_edit_#{dom_id(encashment)}", no_text: true if can?(:edit, encashment) %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Encashment)) %>,
+    <%= link_to(Spree.t(:add_one), new_admin_encashment_url) if can? :create, Spree::Encashment %>!
+  </div>
+<% end %>
+
+<%= render 'spree/admin/shared/index_table_options', collection: @encashments, simple: true %>

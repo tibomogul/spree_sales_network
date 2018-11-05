@@ -13,9 +13,18 @@ en:
     payee: Payee
     sales_network_slug: "URL ID"
     authorize_commissions_error: Authorize Commissions Error
+    encashment: Encashment
+    encashment_state:
+      draft: draft
+      paid: paid
+      held: held
+      canceled: canceled
   activerecord:
     attributes:
       spree/commission:
         amount: Amount
         state: State
         base_price: Base Price
+      spree/encashment:
+        amount: Amount
+        state: State
