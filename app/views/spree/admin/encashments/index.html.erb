@@ -69,11 +69,13 @@
         <td><%= encashment.user.email %></td>
         <td><%= encashment.display_amount.to_html %></td>
         <td>
-          <span class="label label-<%= encashment.state.downcase %>"><%= Spree.t("encashment_state.#{encashment.state.downcase}") %></span>
+          <span class="label label-<%= encashment.state.downcase %>"><%= Spree.t("encashment_state.#{encashment.state.downcase}").capitalize %></span>
           <span class="icon icon-filter filterable js-add-filter" data-ransack-field="q_state_eq" data-ransack-value="<%= encashment.state %>"></span>
         </td>
         <td class='actions actions-1' data-hook="admin_encashments_index_row_actions">
-          <%= link_to_edit_url edit_admin_encashment_path(encashment), title: "admin_edit_#{dom_id(encashment)}", no_text: true if can?(:edit, encashment) %>
+          <% if can?(:edit, encashment) %>
+            <%= event_links(encashment, @encashment_events) %>
+          <% end %>
         </td>
       </tr>
     <% end %>

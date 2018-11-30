@@ -1,5 +1,8 @@
 module Spree
   class Encashment < Spree::Base
+    include Spree::Commission::Calculator
+    include Spree::Commission::PayOut
+    
     belongs_to :user
     # belongs_to :remittance
     
@@ -20,7 +23,7 @@ module Spree
       end
 
       event :cancel do
-        transition all - :paid => :canceled
+        transition all - [:paid, :canceled] => :canceled
       end
     end
   end

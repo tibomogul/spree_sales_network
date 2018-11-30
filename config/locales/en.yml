@@ -14,11 +14,23 @@ en:
     sales_network_slug: "URL ID"
     authorize_commissions_error: Authorize Commissions Error
     encashment: Encashment
+    encashment:
+      events:
+        authorize: Authorize
+        pay: Pay
+        hold: Hold
+        cancel: Cancel
+    encashment_sure_want_to: Are you sure you want to %{event} this encashment?
+    encashment_authorized: Encashment Authorized
+    encashment_paid: Encashment Paid
+    encashment_cancelled: Encashment Cancelled
+    encashment_on_hold: Encashment On Hold
     encashment_state:
       draft: draft
       paid: paid
-      held: held
+      held: on hold
       canceled: canceled
+      authorized: authorized
   activerecord:
     attributes:
       spree/commission:
@@ -28,3 +40,4 @@ en:
       spree/encashment:
         amount: Amount
         state: State
+        created_at: Created At

@@ -1,6 +1,7 @@
 module Spree
   module Admin
     class EncashmentsController < Spree::Admin::BaseController
+      before_action :initialize_encashment_events
       before_action :load_encashment, only: [:edit, :update]
 
       respond_to :html
@@ -35,6 +36,34 @@ module Spree
                   per(params[:per_page] || Spree::Config[:admin_orders_per_page])
       end
 
+      def authorize
+        @encashment = Spree::Encashment.find(params[:id])
+        @encashment.authorize!
+        flash[:success] = Spree.t(:encashment_authorized)
+        redirect_back fallback_location: spree.admin_encashments_path
+      end
+
+      def pay
+        @encashment = Spree::Encashment.find(params[:id])
+        @encashment.pay!
+        flash[:success] = Spree.t(:encashment_paid)
+        redirect_back fallback_location: spree.admin_encashments_path
+      end
+
+      def cancel
+        @encashment = Spree::Encashment.find(params[:id])
+        @encashment.cancel!
+        flash[:success] = Spree.t(:encashment_cancelled)
+        redirect_back fallback_location: spree.admin_encashments_path
+      end
+
+      def hold
+        @encashment = Spree::Encashment.find(params[:id])
+        @encashment.hold!
+        flash[:success] = Spree.t(:encashment_on_hold)
+        redirect_back fallback_location: spree.admin_encashments_path
+      end
+
       private
 
       def encashment_params
@@ -46,6 +75,11 @@ module Spree
       def load_encashment
         @encashment = Spree::Encashment.includes(:user).find(params[:id])
         authorize! action, @encashment
+      end
+
+      # Used for extensions which need to provide their own custom event links on the order details view.
+      def initialize_encashment_events
+        @encashment_events = %w{authorize pay hold cancel}
       end
 
     end
