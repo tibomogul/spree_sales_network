@@ -30,7 +30,7 @@
           <td><%=  payment.order.user.account_lastname + ', ' + payment.order.user.account_firstname  %></td>
         <% end %>
         <td><%= payment.order.email  %></td>
-        <td><%= payment.amount.to_f %></td>
+        <td><%= payment.display_amount.to_html %></td>
         <td><%= payment.updated_at %></td>
         <td><%= payment.state %></td>
       </tr>
