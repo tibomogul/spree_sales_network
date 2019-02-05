@@ -13,6 +13,10 @@ en:
     payee: Payee
     sales_network_slug: "URL ID"
     authorize_commissions_error: Authorize Commissions Error
+    paypal_payment_report: Paypal Payment Report
+    paypal_payment_report_description: List of all payments made via Paypal
+    from_date: From Date
+    to_date: To Date
   activerecord:
     attributes:
       spree/commission:
