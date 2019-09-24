@@ -12,20 +12,19 @@ module Spree
           payout_results = []
           house_rate = 0
           payout_base = order_payout_base order
-          { 
-            10.0 => order.user&.parent,
-            5.0  => order.user&.parent&.parent,
-            1.0  => order.user&.parent&.parent&.parent
-          }.each do |k,v|
-            if v.nil?
-              house_rate += k
+          [ 
+            [10.0, order.user&.parent],
+            [10.0, order.user&.parent&.parent]
+          ].each do |k|
+            if k.last.nil?
+              house_rate += k.first
             else
-              amount = (payout_base.to_f * k / 100.0).round(2).to_d
+              amount = (payout_base.to_f * k.first / 100.0).round(2).to_d
               payout_results << {
-                user: v,
+                user: k.last,
                 order: order,
                 amount: amount,
-                rate: k,
+                rate: k.first,
                 base_price: payout_base
               }
             end
