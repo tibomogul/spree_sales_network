@@ -1,0 +1,41 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:reports), spree.admin_reports_url %> /
+  <%= Spree.t(:paypal_payment_report) %>
+<% end %>
+
+<div class="well">
+  <%= render partial: 'spree/admin/shared/report_paypal_payment_criteria' %>
+</div>
+
+<%= render 'spree/admin/shared/index_table_options', collection: @payments, simple: true %>
+
+<table class="table table-bordered admin-report" data-hook="paypal_payment_total">
+  <thead>
+    <tr>
+      <th><%= "Order Number" %></th>
+      <th><%= "Custoner Name" %></th>
+      <th><%= "Custoner Email" %></th>
+      <th><%= "Amount Paid" %></th>
+      <th><%= "Date Paid" %></th>
+      <th><%= "Payment State" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= link_to payment.order.number, edit_admin_order_path(payment.order) %></td>
+        <% if payment.order.user.nil? || payment.order.user.account_lastname.nil? || payment.order.user.account_firstname.nil?  %>
+          <td> </td>
+        <% else %>
+          <td><%=  payment.order.user.account_lastname + ', ' + payment.order.user.account_firstname  %></td>
+        <% end %>
+        <td><%= payment.order.email  %></td>
+        <td><%= payment.display_amount.to_html %></td>
+        <td><%= payment.updated_at %></td>
+        <td><%= payment.state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render 'spree/admin/shared/index_table_options', collection: @payments, simple: true %>

@@ -1,0 +1,18 @@
+<%= search_form_for @search, url: spree.paypal_payment_report_admin_reports_path  do |s| %>
+  <div class="form-group date-range-filter">
+    <div class="date-range-filter row">
+      <div class="col-md-6">
+        <%= label_tag nil, Spree.t(:from_date) %>
+        <%= s.text_field :updated_at_gt, class: 'datepicker datepicker-from form-control', value: datepicker_field_value(params[:q][:updated_at_gt]) %>
+      </div>
+      <div class="col-md-6">
+        <%= label_tag nil, Spree.t(:to_date) %>
+        <%= s.text_field :updated_at_lt, class: 'datepicker datepicker-to form-control', value: datepicker_field_value(params[:q][:updated_at_lt]) %>
+    </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= button Spree.t(:search), 'search' %>
+  </div>
+<% end %>
