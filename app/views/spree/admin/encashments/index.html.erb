@@ -2,9 +2,11 @@
   <%= plural_resource_name(Spree::Encashment) %>
 <% end %>
 
-<% content_for :page_actions do %>
-  <%= button_link_to Spree.t(:new_encashment), new_admin_encashment_url, class: "btn-success", icon: 'add', id: 'admin_new_encashment' %>
-<% end if can? :create, Spree::Encashment %>
+<% comment_out_erb do %>
+  <% content_for :page_actions do %>
+    <%= button_link_to Spree.t(:new_encashment), new_admin_encashment_url, class: "btn-success", icon: 'add', id: 'admin_new_encashment' %>
+  <% end if can? :create, Spree::Encashment %>
+<% comment_out_erb end %>
 
 <% content_for :table_filter do %>
   <div data-hook="admin_encashments_index_search">
@@ -55,7 +57,8 @@
       <tr data-hook="admin_encashments_index_headers">
         <th><%= sort_link @search, :created_at,     I18n.t(:created_at, scope: 'activerecord.attributes.spree/encashment') %></th>
         <th><%= sort_link @search, :payee, I18n.t(:payee, scope: 'spree') %></th>
-        <th><%= sort_link @search, :amount, I18n.t(:amount, scope: 'activerecord.attributes.spree/encashment') %></th>
+        <th><%= sort_link @search, :amount, I18n.t(:amount, scope: 'activerecord.attributes.spree/encashment') + " (incl tax)" %></th>
+        <th><%= sort_link @search, :withholding_tax, I18n.t(:withholding_tax, scope: 'activerecord.attributes.spree/encashment') %></th>
         <th><%= sort_link @search, :state, I18n.t(:state, scope: 'activerecord.attributes.spree/encashment') %></th>
         <th data-hook="admin_encashments_index_header_actions" class="actions"></th>
       </tr>
@@ -68,6 +71,7 @@
         </td>
         <td><%= encashment.user.email %></td>
         <td><%= encashment.display_amount.to_html %></td>
+        <td><%= Spree::Money.new(encashment.withholding_tax, currency: current_currency) %></td>
         <td>
           <span class="label label-<%= encashment.state.downcase %>"><%= Spree.t("encashment_state.#{encashment.state.downcase}").capitalize %></span>
           <span class="icon icon-filter filterable js-add-filter" data-ransack-field="q_state_eq" data-ransack-value="<%= encashment.state %>"></span>
@@ -75,6 +79,7 @@
         <td class='actions actions-1' data-hook="admin_encashments_index_row_actions">
           <% if can?(:edit, encashment) %>
             <%= event_links(encashment, @encashment_events) %>
+            <%= link_to_edit_url edit_admin_encashment_path(encashment), title: "admin_edit_#{dom_id(encashment)}", no_text: true  %>
           <% end %>
         </td>
       </tr>

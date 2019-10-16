@@ -10,6 +10,8 @@ Spree::Core::Engine.add_routes do
         put :pay
         put :cancel
         put :hold
+      end
+    end
     
     resources :reports, only: [:index] do
       collection do

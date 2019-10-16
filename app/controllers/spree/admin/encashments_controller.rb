@@ -36,16 +36,31 @@ module Spree
                   per(params[:per_page] || Spree::Config[:admin_orders_per_page])
       end
 
+      def new
+      end
+
+      def edit
+      end
+
+      def update
+        if @encashment.update_attributes(encashment_params)
+          flash[:success] = Spree.t(:account_updated)
+          redirect_to edit_admin_encashment_path(@encashment)
+        else
+          render :edit
+        end
+      end
+
       def authorize
         @encashment = Spree::Encashment.find(params[:id])
-        @encashment.authorize!
+        @encashment.authorize(@encashment.amount)
         flash[:success] = Spree.t(:encashment_authorized)
         redirect_back fallback_location: spree.admin_encashments_path
       end
 
       def pay
         @encashment = Spree::Encashment.find(params[:id])
-        @encashment.pay!
+        @encashment.pay(@encashment.amount)
         flash[:success] = Spree.t(:encashment_paid)
         redirect_back fallback_location: spree.admin_encashments_path
       end
@@ -69,7 +84,7 @@ module Spree
       def encashment_params
         # params[:created_by_id] = try_spree_current_user.try(:id)
         # params.permit(:created_by_id, :user_id, :store_id)
-        params.permit(:user_id, :amount)
+        params.require(:encashment).permit(:user_id, :amount, :withholding_tax)
       end
 
       def load_encashment
