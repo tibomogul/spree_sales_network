@@ -1,6 +1,7 @@
 module Spree
   BaseHelper.module_eval do
     def product_share_url(product, options={})
+      options[:v] = 1 # bump this if you want to refresh opengraph caches
       if !product
         if spree_current_user && !spree_current_user.sales_network_slug.blank?
           root_url(sponsor: spree_current_user.sales_network_slug)
