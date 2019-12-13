@@ -43,7 +43,7 @@ module Spree
         end
 
         def order_payout_base order
-          order.item_total + order.adjustments.sum(:amount)
+          order.item_total + order.adjustments.where(eligible: true).sum(:amount)
         end      	
 
         def reduce_commission reimbursement
